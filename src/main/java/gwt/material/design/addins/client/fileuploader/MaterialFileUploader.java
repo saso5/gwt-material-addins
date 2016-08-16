@@ -35,11 +35,16 @@ import gwt.material.design.addins.client.fileuploader.base.UploadFile;
 import gwt.material.design.addins.client.fileuploader.base.UploadResponse;
 import gwt.material.design.addins.client.fileuploader.constants.FileMethod;
 import gwt.material.design.addins.client.fileuploader.events.*;
+import gwt.material.design.addins.client.fileuploader.js.Dropzone;
+import gwt.material.design.addins.client.fileuploader.js.JsFileUploaderOptions;
 import gwt.material.design.client.MaterialDesignBase;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.Display;
+import gwt.material.design.jquery.client.api.JQueryElement;
 
 import java.util.Date;
+
+import static gwt.material.design.jquery.client.api.JQuery.$;
 
 //@formatter:off
 
@@ -135,7 +140,70 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
      * @param e
      * @param url
      */
-    protected native void initDropzone(Element e, Element template, String previews, Element uploadPreview, Element uploadedFiles, String url, int maxFileSize, int maxFiles, String method, boolean autoQueue, String acceptedFiles, String clickable,boolean preview,boolean withCredentials) /*-{
+    protected void initDropzone(Element e, Element template, String previews, Element uploadPreview, Element uploadedFiles, String url, int maxFileSize, int maxFiles, String method, boolean autoQueue, String acceptedFiles, String clickable,boolean preview,boolean withCredentials) {
+        JQueryElement previewNode = $(template);
+        previewNode.asElement().setId("");
+        String previewContainer = $("#" + previews).html();
+        String previewTemplate = previewNode.parent().html();
+        int totalFiles = 0;
+
+        JsFileUploaderOptions options = new JsFileUploaderOptions();
+        options.url = url;
+        options.maxFilesize = maxFileSize;
+        options.method = method;
+        options.maxFiles = maxFiles;
+        options.previewTemplate = previewTemplate;
+        options.acceptedFiles = acceptedFiles;
+        options.autoQueue = autoQueue;
+        options.previewsContainer = "#" + previews;
+        options.clickable = "#" + clickable;
+        options.withCredentials = withCredentials;
+        Dropzone uploader = new Dropzone(e, options);
+
+        uploader.on("drop", event -> {
+            fireDropEvent();
+            if(preview) {
+                $(e).removeClass("active");
+            }
+            return true;
+        });
+
+        uploader.on("dragstart", event ->  {
+            fireDragStartEvent();
+            return true;
+        });
+
+        uploader.on("dragend", event -> {
+            fireDragEndEvent();
+            return true;
+        });
+
+        uploader.on("dragenter", event ->  {
+            fireDragEnterEvent();
+            if(preview){
+                $(e).addClass("active");
+            }
+            return true;
+        });
+
+        uploader.on("dragover", event ->  {
+            fireDragOverEvent();
+            return true;
+        });
+
+        uploader.on("dragleave", event ->  {
+            fireDragLeaveEvent();
+            if(preview) {
+                $(e).removeClass("active");
+            }
+            return true;
+        });
+
+
+
+    }
+
+    protected native void initDropzoned(Element e, Element template, String previews, Element uploadPreview, Element uploadedFiles, String url, int maxFileSize, int maxFiles, String method, boolean autoQueue, String acceptedFiles, String clickable,boolean preview,boolean withCredentials) /*-{
         var that = this;
         $wnd.jQuery(document).ready(function() {
             var previewNode = $wnd.jQuery(template);
