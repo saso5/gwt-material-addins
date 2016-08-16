@@ -24,8 +24,6 @@ package gwt.material.design.addins.client.fileuploader;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import gwt.material.design.client.base.MaterialWidget;
 import gwt.material.design.client.constants.IconType;
 import gwt.material.design.client.constants.WavesType;
@@ -44,11 +42,8 @@ public class MaterialUploadHeader extends MaterialWidget {
         iconClose.setId("upload-close");
         iconClose.setCircle(true);
         iconClose.setWaves(WavesType.DEFAULT);
-        iconClose.addClickHandler(new ClickHandler() {
-            @Override
-            public void onClick(ClickEvent clickEvent) {
-                preview.setVisibility(Style.Visibility.HIDDEN);
-            }
+        iconClose.addClickHandler(event -> {
+            preview.setVisibility(Style.Visibility.HIDDEN);
         });
         iconColaps.setId("upload-colaps");
         iconColaps.setCircle(true);

@@ -436,12 +436,9 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
 
     @Override
     public HandlerRegistration addDropHandler(final DropEvent.DropHandler handler) {
-        return addHandler(new DropEvent.DropHandler() {
-            @Override
-            public void onDrop(DropEvent event) {
-                if(isEnabled()){
-                    handler.onDrop(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onDrop(event);
             }
         }, DropEvent.TYPE);
     }
@@ -453,12 +450,9 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
 
     @Override
     public HandlerRegistration addDragStartHandler(final DragStartEvent.DragStartHandler handler) {
-        return addHandler(new DragStartEvent.DragStartHandler() {
-            @Override
-            public void onDragStart(DragStartEvent event) {
-                if(isEnabled()){
-                    handler.onDragStart(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onDragStart(event);
             }
         }, DragStartEvent.TYPE);
     }
@@ -470,12 +464,9 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
 
     @Override
     public HandlerRegistration addDragEndHandler(final DragEndEvent.DragEndHandler handler) {
-        return addHandler(new DragEndEvent.DragEndHandler() {
-            @Override
-            public void onDragEnd(DragEndEvent event) {
-                if(isEnabled()){
-                    handler.onDragEnd(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onDragEnd(event);
             }
         }, DragEndEvent.TYPE);
     }
@@ -487,12 +478,9 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
 
     @Override
     public HandlerRegistration addDragEnterHandler(final DragEnterEvent.DragEnterHandler handler) {
-        return addHandler(new DragEnterEvent.DragEnterHandler() {
-            @Override
-            public void onDragEnter(DragEnterEvent event) {
-                if(isEnabled()){
-                    handler.onDragEnter(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onDragEnter(event);
             }
         }, DragEnterEvent.TYPE);
     }
@@ -521,12 +509,9 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
 
     @Override
     public HandlerRegistration addDragLeaveHandler(final DragLeaveEvent.DragLeaveHandler handler) {
-        return addHandler(new DragLeaveEvent.DragLeaveHandler() {
-            @Override
-            public void onDragLeave(DragLeaveEvent event) {
-                if(isEnabled()){
-                    handler.onDragLeave(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onDragLeave(event);
             }
         }, DragLeaveEvent.TYPE);
     }
@@ -589,12 +574,9 @@ public class MaterialFileUploader extends MaterialWidget implements HasFileUploa
 
     @Override
     public HandlerRegistration addTotalUploadProgressHandler(final TotalUploadProgressEvent.TotalUploadProgressHandler handler) {
-        return addHandler(new TotalUploadProgressEvent.TotalUploadProgressHandler() {
-            @Override
-            public void onTotalUploadProgress(TotalUploadProgressEvent event) {
-                if(isEnabled()){
-                    handler.onTotalUploadProgress(event);
-                }
+        return addHandler(event -> {
+            if(isEnabled()){
+                handler.onTotalUploadProgress(event);
             }
         }, TotalUploadProgressEvent.TYPE);
     }

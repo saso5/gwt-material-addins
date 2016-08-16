@@ -27,7 +27,7 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 
 /**
- * Created by Mark Kevin on 8/16/2016.
+ * Dropzone JSInterop object and utils
  */
 @JsType(isNative = true, namespace = JsPackage.GLOBAL)
 public class Dropzone extends JQueryElement {
